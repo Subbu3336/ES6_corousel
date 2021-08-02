@@ -1,0 +1,129 @@
+body{
+    margin:  0px;
+}
+.carousel-wrapper {
+  overflow: hidden;
+  width: 100%;
+  margin: auto;
+}
+
+.carousel-wrapper * {
+  box-sizing: border-box;
+}
+
+.carousel {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.carousel__photo {
+  opacity: 0;
+  position: absolute;
+  top:0;
+  width: 100%;
+  margin: auto;
+  z-index: 100;
+  max-height:  140px;
+  transition: transform .5s, opacity .5s, z-index .5s;
+}
+
+.carousel__photo.initial,
+.carousel__photo.active {
+  opacity: 1;
+  position: relative;
+  z-index: 900;
+}
+
+.carousel__photo.prev,
+.carousel__photo.next {
+  z-index: 800;
+}
+
+.carousel__photo.prev {
+  transform: translateX(-100%);
+}
+
+
+.carousel__photo.next {
+  transform: translateX(100%);
+}
+
+.carousel__button--prev,
+.carousel__button--next {
+     float:  left;
+    position: relative;
+  width: 16px;
+  height: 20px;
+  background-color: #FFF;
+  cursor: pointer; 
+  display: inline-block;
+}
+
+.carousel__button--prev {
+  left:0;
+}
+
+.carousel__button--next {
+  right:0;
+}
+
+.carousel__button--prev::after,
+.carousel__button--next::after {
+    content: " ";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: 10px;
+    left: 10px;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    transform: translate(-50%, -50%) rotate(135deg);
+}
+
+.carousel__button--next::after {
+  left: 5px;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.dotsContent{
+    display: inline-block;
+    float:  left;
+    margin: 0px 20px;
+}
+
+.dotsContent span{ 
+  height: 10px;
+  width: 10px;
+  background-color: #000000;
+  border-radius: 50%;
+  display: inline-block;
+  margin:  0px 5px;
+  border: 1px solid #000000;
+  cursor:  pointer;
+      margin-top: 5px;
+}
+
+.dotsContent span.active{
+    background-color: #FFFFFF;
+}
+
+.buttons{
+    display: flex;
+    margin:  30px 0px;
+}
+
+.middle--block{
+    margin:  0px auto;
+}
+
+
+@media (max-width:767px) {
+    .middle--block {
+        margin: 0px auto;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin: 0px 20px;
+    }
+}
