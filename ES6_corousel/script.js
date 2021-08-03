@@ -48,20 +48,23 @@ class corousel {
   }
   sliderEvents(){
     if(this.totalItems > 1){
-           this.corouselParent.getElementsByClassName("dotsContent")[0].addEventListener("click", function(e) {
+           this.corouselParent.getElementsByClassName("dotsContent")[0].addEventListener("click", (e) => {
                if(e.target && e.target.tagName === "SPAN"){
-                  let slide=e.target.dataset.number-1;
+                  let slide=parseInt(e.target.dataset.number) - 1;
+                  console.log(slide +"--");
                   this.moveCarouselTo(slide);
                }
           });
-        }
+        } 
   }
 
 
   moveCarouselTo(slideValue) {
-    if(slideValue){
+    
+    if(slideValue || slideValue == 0){
       this.slide=slideValue;
     }
+
     if(!this.moving) {
       this.disableInteraction();
 
@@ -115,8 +118,6 @@ class corousel {
   }
 
   movePrev() {
-
-    // Check if moving
     if (!this.moving) {
       if (this.slide === 0) {
         this.slide = (this.totalItems - 1);
@@ -124,7 +125,7 @@ class corousel {
         this.slide--;
       }
 
-      this.moveCarouselTo;
+      this.moveCarouselTo();
     }
   }
 }
