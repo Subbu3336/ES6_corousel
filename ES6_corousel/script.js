@@ -5,6 +5,8 @@ class corousel {
     this.corouselParent = corouselParent;
     this.slide= 0;
     this.moving= false;
+    this.xDown=null;
+    this.yDown=null;
     this.setInitialClasses();
     this.setEventListeners();
     this.setSlideDots();
@@ -24,7 +26,42 @@ class corousel {
      if(this.totalItems > 1){
       next.addEventListener('click', () =>{this.moveNext()});
       prev.addEventListener('click', () =>{this.movePrev()});
+
+      for (var i = 0; i < this.totalItems; i++) {
+        this.corouselItem[i].addEventListener('touchstart', (e) => {this.handleTouchStart(e)}, false);        
+        this.corouselItem[i].addEventListener('touchmove', (e) => {this.handleTouchMove(e)}, false);
+      }
+
      }
+  }
+                                                                   
+handleTouchStart(evt) {
+    const firstTouch = (evt.touches || evt.originalEvent.touches)[0];                                      
+    this.xDown = firstTouch.clientX;                                      
+    this.yDown = firstTouch.clientY;                                      
+};                                                
+                                                                        
+
+  handleTouchMove(evt) {
+    if ( ! this.xDown || ! this.yDown ) {
+        return;
+    }
+
+    var xUp = evt.touches[0].clientX;                                    
+    var yUp = evt.touches[0].clientY;
+
+    var xDiff = this.xDown - xUp;
+    var yDiff = this.yDown - yUp;
+                                                                         
+    if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
+        if ( xDiff > 0 ) {
+          this.moveNext();
+        } else {
+           this.movePrev();
+        }                       
+    } 
+    this.xDown = null;
+    this.yDown = null;                                             
   }
 
   disableInteraction() {
@@ -51,7 +88,6 @@ class corousel {
            this.corouselParent.getElementsByClassName("dotsContent")[0].addEventListener("click", (e) => {
                if(e.target && e.target.tagName === "SPAN"){
                   let slide=parseInt(e.target.dataset.number) - 1;
-                  console.log(slide +"--");
                   this.moveCarouselTo(slide);
                }
           });
@@ -59,10 +95,10 @@ class corousel {
   }
 
 
-  moveCarouselTo(slideValue) {
+ moveCarouselTo(slideValue) {
     
     if(slideValue || slideValue == 0){
-      this.slide=slideValue;
+      this.slide = slideValue;
     }
 
     if(!this.moving) {
@@ -112,7 +148,6 @@ class corousel {
       } else {
         this.slide++;
       }
-      console.log(this);
       this.moveCarouselTo();
     }
   }
@@ -138,3 +173,5 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+
+
