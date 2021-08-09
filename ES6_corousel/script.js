@@ -47,11 +47,8 @@ handleTouchStart(evt) {
         return;
     }
 
-    var xUp = evt.touches[0].clientX;                                    
-    var yUp = evt.touches[0].clientY;
-
-    var xDiff = this.xDown - xUp;
-    var yDiff = this.yDown - yUp;
+    let xDiff = this.xDown - evt.touches[0].clientX;
+    let yDiff = this.yDown - evt.touches[0].clientY;
                                                                          
     if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {
         if ( xDiff > 0 ) {
@@ -73,8 +70,8 @@ handleTouchStart(evt) {
   }
 
   setSlideDots(){
-    for (var i = 0; i < this.totalItems; i++) {
-        var node = document.createElement("span");
+    for (let i = 0; i < this.totalItems; i++) {
+        let node = document.createElement("span");
         if(i == 0){
             node.className ="active"
         }
