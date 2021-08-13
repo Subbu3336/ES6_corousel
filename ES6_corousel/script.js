@@ -1,8 +1,9 @@
 class corousel {
-  constructor(corouselItem, corouselParent) {
+  constructor(corouselItem, corouselParent, slideText) {
     this.corouselItem = corouselItem;
     this.totalItems=corouselItem.length;
     this.corouselParent = corouselParent;
+    this.slideText=slideText;
     this.slide= 0;
     this.moving= false;
     this.xDown=null;
@@ -76,13 +77,13 @@ handleTouchStart(evt) {
             node.className ="active"
         }
         node.dataset.number=i+1;
-        this.corouselParent.getElementsByClassName("dotsContent")[0].appendChild(node);
+        this.corouselParent.getElementsByClassName("line-container")[0].appendChild(node);
     }
-
+    this.corouselParent.getElementsByClassName("slideText")[0].innerHTML = this.slideText;
   }
   sliderEvents(){
     if(this.totalItems > 1){
-           this.corouselParent.getElementsByClassName("dotsContent")[0].addEventListener("click", (e) => {
+           this.corouselParent.getElementsByClassName("line-container")[0].addEventListener("click", (e) => {
                if(e.target && e.target.tagName === "SPAN"){
                   let slide=parseInt(e.target.dataset.number) - 1;
                   this.moveCarouselTo(slide);
@@ -101,8 +102,8 @@ handleTouchStart(evt) {
     if(!this.moving) {
       this.disableInteraction();
 
-      let activeDot = this.corouselParent.querySelector(".dotsContent span:nth-child("+(this.slide+1)+")");
-      let preActiveDot = this.corouselParent.querySelector(".dotsContent span.active");
+      let activeDot = this.corouselParent.querySelector(".line-container span:nth-child("+(this.slide+1)+")");
+      let preActiveDot = this.corouselParent.querySelector(".line-container span.active");
       preActiveDot.classList.remove("active");
       activeDot.className="active";
 
@@ -166,7 +167,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let itemClassName = "carousel-wrapper";
   items = document.getElementsByClassName(itemClassName);
   for (var i = 0; i < items.length; i++) {
-      new corousel(items[i].getElementsByClassName("carousel__photo"),items[i]);
+      new corousel(items[i].getElementsByClassName("carousel__photo"),items[i], "Manage your Accounts from anywhere");
   }
 
 });
